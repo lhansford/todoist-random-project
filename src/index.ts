@@ -19,6 +19,6 @@ if (apiToken) {
     .catch(console.error);
 } else {
   console.error(
-    'You need to set the environment variable "TRP_API_TOKEN". See the readme file at TODO: for instructions.',
+    'You need to set the environment variable "TRP_API_TOKEN". See the readme file at https://github.com/lhansford/todoist-random-project for instructions.',
   );
 }
