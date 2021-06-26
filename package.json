@@ -1,8 +1,9 @@
 {
   "name": "todoist-random-project",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Connects to your Todoist account and returns a random project",
   "main": "dist/index.js",
+  "bin": "dist/index.js",
   "author": "Luke Hansford",
   "license": "MIT",
   "scripts": {

@@ -41,4 +41,5 @@ complete create a pull request to merge back into the `development` branch.
 
 ## Releasing
 
-TODO:
+Releases are automated using Github Actions. To trigger a release, update the package version
+in `develop` and then merge `develop` into the `main` branch.
