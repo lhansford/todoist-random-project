@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 const API_ENDPOINT = 'https://api.todoist.com/rest/v1';
 
@@ -33,11 +33,11 @@ async function getProjectsWithTasks(apiToken: string): Promise<number[]> {
   const response = await fetch(`${API_ENDPOINT}/tasks`, {
     headers: { Authorization: `Bearer ${apiToken}` },
   });
-  const tasks: Task[] = await response.json();
+  const tasks = await response.json() as Task[];
   return tasks.map(({ project_id }) => project_id);
 }
 
-export async function getProjects(
+export async function getRandomProject(
   apiToken: string,
   ignoredProjectIds: number[],
 ): Promise<Project | undefined> {
@@ -45,7 +45,7 @@ export async function getProjects(
   const response = await fetch(`${API_ENDPOINT}/projects`, {
     headers: { Authorization: `Bearer ${apiToken}` },
   });
-  const projects: Project[] = await response.json();
+  const projects = await response.json() as Project[];
 
   const validProjects = projects
     .filter((p) => !ignoredProjectIds.includes(p.id))

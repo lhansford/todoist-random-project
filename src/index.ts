@@ -1,7 +1,6 @@
-#!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { getProjects } from './utils';
+import { getRandomProject } from './utils';
 
 const apiToken = process.env.TRP_API_TOKEN;
 const ignoredProjectIds = (process.env.TRP_IGNORED_PROJECTS || '')
@@ -10,7 +9,7 @@ const ignoredProjectIds = (process.env.TRP_IGNORED_PROJECTS || '')
   .filter((v) => !Number.isNaN(v));
 
 if (apiToken) {
-  getProjects(apiToken, ignoredProjectIds)
+  getRandomProject(apiToken, ignoredProjectIds)
     .then((project) => {
       if (project) {
         console.log(`${project.name} (${project.url})`);
