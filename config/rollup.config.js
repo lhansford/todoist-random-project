@@ -18,11 +18,6 @@ export default {
   plugins: [
     resolve({ extensions, preferBuiltins: true }),
     commonjs(),
-    typescript({ emitDeclarationOnly: true }),
-    // babel({
-    //   exclude: 'node_modules/**',
-    //   include: ['src/**/*'],
-    //   extensions,
-    // }),
+    typescript(),
   ],
 };
