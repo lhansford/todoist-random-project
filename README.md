@@ -36,7 +36,7 @@ npm i -g todoist-random-project
 
 ## Contributing
 
-To contribute to the project, bracnh off of the `development` branch and once your changes are
+To contribute to the project, branch off of the `development` branch and once your changes are
 complete create a pull request to merge back into the `development` branch.
 
 ## Releasing
