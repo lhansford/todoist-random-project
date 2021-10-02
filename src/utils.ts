@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const API_ENDPOINT = 'https://api.todoist.com/rest/v1/projects';
+const API_ENDPOINT = 'https://api.todoist.com/rest/v1';
 
 const getRandomInteger = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -25,15 +25,31 @@ interface Project {
   url: string;
 }
 
+interface Task {
+  project_id: number;
+}
+
+async function getProjectsWithTasks(apiToken: string): Promise<number[]> {
+  const response = await fetch(`${API_ENDPOINT}/tasks`, {
+    headers: { Authorization: `Bearer ${apiToken}` },
+  });
+  const tasks: Task[] = await response.json();
+  return tasks.map(({ project_id }) => project_id);
+}
+
 export async function getProjects(
   apiToken: string,
   ignoredProjectIds: number[],
 ): Promise<Project | undefined> {
-  return fetch(API_ENDPOINT, {
+  const nonEmptyProjectIds = await getProjectsWithTasks(apiToken);
+  const response = await fetch(`${API_ENDPOINT}/projects`, {
     headers: { Authorization: `Bearer ${apiToken}` },
-  })
-    .then(async (res: Response) => res.json())
-    .then((projects: Project[]) => {
-      return getRandomElement(projects.filter((p) => !ignoredProjectIds.includes(p.id)));
-    });
+  });
+  const projects: Project[] = await response.json();
+
+  const validProjects = projects
+    .filter((p) => !ignoredProjectIds.includes(p.id))
+    .filter((p) => nonEmptyProjectIds.includes(p.id));
+
+  return getRandomElement(validProjects);
 }
