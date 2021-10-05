@@ -4322,7 +4322,7 @@ rimraf@^3.0.0, rimraf@^3.0.2:
 
 rollup-plugin-preserve-shebangs@^0.2.0:
   version "0.2.0"
-  resolved "https://registry.npmjs.org/rollup-plugin-preserve-shebangs/-/rollup-plugin-preserve-shebangs-0.2.0.tgz#e48894c1f68c6fd54b0de10bd26906224d5dc7cd"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-preserve-shebangs/-/rollup-plugin-preserve-shebangs-0.2.0.tgz#e48894c1f68c6fd54b0de10bd26906224d5dc7cd"
   integrity sha512-OEyTIfZwUJ7yUAVAbegac/bNvp1WJzgZcQNCFprWX42wwwOqlJwrev9lUmzZdYVgCWct+03xUPvZg4RfgkM9oQ==
   dependencies:
     magic-string "^0.25.7"

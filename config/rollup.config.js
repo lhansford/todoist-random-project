@@ -2,6 +2,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
+import { preserveShebangs } from 'rollup-plugin-preserve-shebangs';
 
 import pkg from '../package.json';
 
@@ -18,6 +19,7 @@ export default {
   plugins: [
     resolve({ extensions, preferBuiltins: true }),
     commonjs(),
+    preserveShebangs(),
     typescript(),
   ],
 };
