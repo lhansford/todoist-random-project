@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'https://api.todoist.com/rest/v1';
+const API_ENDPOINT = 'https://api.todoist.com/rest/v2';
 
 const getRandomInteger = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -27,12 +27,27 @@ interface Task {
   project_id: number;
 }
 
+async function handleFailedRequest(response: Response): Promise<string> {
+  if (response.status === 401) {
+    return `Invalid API token. Make sure your token is valid and set as the environment variable TRP_API_TOKEN`;
+  }
+
+  const message = await response.text();
+  return `Failed to fetch tasks with response: ${message}`;
+}
+
 async function getProjectsWithTasks(apiToken: string): Promise<number[]> {
   const response = await fetch(`${API_ENDPOINT}/tasks`, {
     headers: { Authorization: `Bearer ${apiToken}` },
   });
-  const tasks = await response.json() as Task[];
-  return tasks.map(({ project_id }) => project_id);
+
+  if (response.ok) {
+    const tasks = (await response.json()) as Task[];
+    return tasks.map(({ project_id }) => project_id);
+  } else {
+    const errorMsg = await handleFailedRequest(response);
+    throw new Error(errorMsg);
+  }
 }
 
 export async function getRandomProject(
@@ -43,11 +58,17 @@ export async function getRandomProject(
   const response = await fetch(`${API_ENDPOINT}/projects`, {
     headers: { Authorization: `Bearer ${apiToken}` },
   });
-  const projects = await response.json() as Project[];
 
-  const validProjects = projects
-    .filter((p) => !ignoredProjectIds.includes(p.id))
-    .filter((p) => nonEmptyProjectIds.includes(p.id));
+  if (response.ok) {
+    const projects = (await response.json()) as Project[];
 
-  return getRandomElement(validProjects);
+    const validProjects = projects
+      .filter((p) => !ignoredProjectIds.includes(p.id))
+      .filter((p) => nonEmptyProjectIds.includes(p.id));
+
+    return getRandomElement(validProjects);
+  }
+
+  const errorMsg = await handleFailedRequest(response);
+  throw new Error(errorMsg);
 }

@@ -1,6 +1,6 @@
 {
   "name": "todoist-random-project",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Connects to your Todoist account and returns a random project",
   "main": "dist/index.js",
   "type": "module",

@@ -15,8 +15,9 @@ const TASKS = [{ project_id: VALID_PROJECT.id }, { project_id: IGNORED_PROJECT_I
 
 describe('getRandomProject', () => {
   beforeEach(() => {
-    (fetch as jest.Mock).mockResolvedValueOnce({ json: () => Promise.resolve(TASKS) });
+    (fetch as jest.Mock).mockResolvedValueOnce({ ok:true,  json: () => Promise.resolve(TASKS) });
     (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
       json: () => Promise.resolve([VALID_PROJECT, EMPTY_PROJECT]),
     });
   });
