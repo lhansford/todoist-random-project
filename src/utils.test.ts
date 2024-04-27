@@ -1,8 +1,6 @@
-import fetch from 'node-fetch';
-
 import { getRandomProject } from './utils';
 
-jest.mock('node-fetch');
+global.fetch = jest.fn();
 
 const VALID_PROJECT = {
   id: 1,

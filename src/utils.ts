@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 const API_ENDPOINT = 'https://api.todoist.com/rest/v1';
 
 const getRandomInteger = (min: number, max: number): number =>
